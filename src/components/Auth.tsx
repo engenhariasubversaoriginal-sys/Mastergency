@@ -45,10 +45,10 @@ export default function Auth({ onAuthSuccess, onBackToLanding, initialMode = "lo
       }
     } else {
       // Automatically fallback create if it's a known tester, or error out
-      if (email === "admin@globoai.com") {
+      if (email === "admin@mastergency.com") {
         const adminUser: UserProfile = {
           id: "user-456",
-          email: "admin@globoai.com",
+          email: "admin@mastergency.com",
           fullName: "Carlos Eduardo (Admin)",
           agencyId: "agency-123",
           role: "admin",
@@ -59,10 +59,10 @@ export default function Auth({ onAuthSuccess, onBackToLanding, initialMode = "lo
         };
         saveUserProfile(adminUser);
         onAuthSuccess(adminUser);
-      } else if (email === "user@globoai.com") {
+      } else if (email === "user@mastergency.com") {
         const standardUser: UserProfile = {
           id: "user-user1",
-          email: "user@globoai.com",
+          email: "user@mastergency.com",
           fullName: "Mariana Costa (User)",
           agencyId: "agency-123",
           role: "user",
@@ -271,7 +271,7 @@ export default function Auth({ onAuthSuccess, onBackToLanding, initialMode = "lo
             <Sparkles className="w-6 h-6 text-white animate-pulse" />
           </div>
           <h2 className="font-display font-bold text-2xl text-white">
-            {mode === "login" && "Acesse o GloboAI"}
+            {mode === "login" && "Acesse o Mastergency"}
             {mode === "register" && "Crie sua conta"}
             {mode === "confirm-email" && "Confirmação de E-mail"}
             {mode === "recovery" && "Recupere sua senha"}
@@ -592,7 +592,7 @@ export default function Auth({ onAuthSuccess, onBackToLanding, initialMode = "lo
             <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
-                onClick={() => handleQuickFill("admin@globoai.com", "admin")}
+                onClick={() => handleQuickFill("admin@mastergency.com", "admin")}
                 className="p-2 bg-brand-blue/5 hover:bg-brand-blue/10 border border-brand-blue/15 hover:border-brand-blue/30 text-[11px] font-bold text-brand-blue rounded-xl transition-all text-left flex flex-col justify-between"
               >
                 <span>🔑 Admin Login</span>
@@ -601,7 +601,7 @@ export default function Auth({ onAuthSuccess, onBackToLanding, initialMode = "lo
 
               <button
                 type="button"
-                onClick={() => handleQuickFill("user@globoai.com", "user")}
+                onClick={() => handleQuickFill("user@mastergency.com", "user")}
                 className="p-2 bg-indigo-500/5 hover:bg-indigo-500/10 border border-indigo-500/15 hover:border-indigo-500/30 text-[11px] font-bold text-indigo-400 rounded-xl transition-all text-left flex flex-col justify-between"
               >
                 <span>👤 User Login</span>

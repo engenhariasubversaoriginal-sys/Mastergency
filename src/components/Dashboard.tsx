@@ -53,7 +53,7 @@ export default function Dashboard({ user, contents, onNavigate, onRefreshData }:
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
     {
       sender: "assistant",
-      text: `### 🔮 Bem-vindo ao GloboAI Consultor!
+      text: `### 🔮 Bem-vindo ao Mastergency Consultor!
 
 Eu sou o seu **Estrategista de Copywriting de Elite**. Digite qualquer dúvida ou prompt abaixo para obter respostas instantâneas em tempo real. 
 
@@ -310,7 +310,7 @@ Hoje, a nossa agência está com taxas de câmbio congeladas e parcelamento em a
               <MessageSquare className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-display font-bold text-lg text-white">Consultor de Copywriting GloboAI</h3>
+              <h3 className="font-display font-bold text-lg text-white">Consultor de Copywriting Mastergency</h3>
               <p className="text-xs text-gray-400">ChatGPT-style Assistant: Pergunte dúvidas reais ou peça copywriting estratégico</p>
             </div>
           </div>

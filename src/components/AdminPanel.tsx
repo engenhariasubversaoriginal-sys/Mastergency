@@ -105,7 +105,7 @@ export default function AdminPanel({ onRefreshData }: AdminPanelProps) {
           Painel de Administração SaaS
         </h2>
         <p className="text-sm text-gray-400">
-          Gerenciamento interno da GloboAI: monitore métricas financeiras, ajuste créditos de agências e refine a engenharia de prompt principal.
+          Gerenciamento interno da Mastergency: monitore métricas financeiras, ajuste créditos de agências e refine a engenharia de prompt principal.
         </p>
       </div>
 
@@ -152,7 +152,7 @@ export default function AdminPanel({ onRefreshData }: AdminPanelProps) {
               Conexão com o Banco de Dados Real
             </h3>
             <p className="text-xs text-gray-400">
-              Gerencie a integração da GloboAI com o backend relacional do Supabase (Autenticação e Tabelas de Perfis).
+              Gerencie a integração da Mastergency com o backend relacional do Supabase (Autenticação e Tabelas de Perfis).
             </p>
           </div>
           {isSupabaseConfigured() ? (

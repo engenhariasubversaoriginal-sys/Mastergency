@@ -268,7 +268,7 @@ export default function SettingsComponent({
               Segredos de Conexão AI
             </h4>
             <p className="text-xs text-gray-400 leading-relaxed">
-              O GloboAI consome sua chave <strong className="text-white">GEMINI_API_KEY</strong> de forma criptografada e segura pelo servidor (Express Node backend).
+              O Mastergency consome sua chave <strong className="text-white">GEMINI_API_KEY</strong> de forma criptografada e segura pelo servidor (Express Node backend).
             </p>
             <div className="p-3 bg-black/40 rounded-xl border border-white/5 flex items-center justify-between">
               <span className="text-[11px] font-mono text-gray-400">••••••••••••••••</span>

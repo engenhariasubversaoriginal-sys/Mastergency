@@ -25,8 +25,8 @@ export default function App() {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [agency, setAgency] = useState<Agency | null>(null);
 
-  // App navigation state: "landing" | "auth" | dashboard views
-  const [view, setView] = useState<string>("landing");
+  // App navigation state: "auth" | "landing" | dashboard views
+  const [view, setView] = useState<string>("auth");
   const [authMode, setAuthMode] = useState<"login" | "register" | "recovery">("login");
 
   // App dataset states
@@ -52,7 +52,7 @@ export default function App() {
       refreshData();
     } else {
       // Default views for unauthenticated users
-      setView("landing");
+      setView("auth");
     }
   }, []);
 
@@ -73,7 +73,7 @@ export default function App() {
     localStorage.removeItem("globoai_user");
     // Preserve default agency data, just clear active session
     setUser(null);
-    setView("landing");
+    setView("auth");
   };
 
   const handleNavigate = (targetView: string, extraParams?: any) => {

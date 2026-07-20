@@ -91,7 +91,7 @@ const DEFAULT_AGENCY: Agency = {
 // Default User (Simulated Account)
 const DEFAULT_USER: UserProfile = {
   id: "user-456",
-  email: "admin@globoai.com",
+  email: "admin@mastergency.com",
   fullName: "Carlos Eduardo (Admin)",
   agencyId: "agency-123",
   role: "admin", // Let's make it admin so the user can see everything, including Admin Panel!
@@ -319,7 +319,7 @@ export const initializeDB = () => {
       DEFAULT_USER,
       {
         id: "user-user1",
-        email: "user@globoai.com",
+        email: "user@mastergency.com",
         fullName: "Mariana Costa (User)",
         agencyId: "agency-123",
         role: "user",

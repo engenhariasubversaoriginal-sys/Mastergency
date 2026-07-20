@@ -26,7 +26,7 @@ export const getSupabaseClient = () => {
 };
 
 // SQL Schema for users to create tables in Supabase:
-export const SUPABASE_SETUP_SQL = `-- Executar no SQL Editor do Supabase para criar as tabelas do GloboAI:
+export const SUPABASE_SETUP_SQL = `-- Executar no SQL Editor do Supabase para criar as tabelas da Mastergency:
 
 -- 1. Tabela de Agências
 CREATE TABLE IF NOT EXISTS public.agencies (

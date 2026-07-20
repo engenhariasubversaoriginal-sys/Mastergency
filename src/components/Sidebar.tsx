@@ -54,7 +54,7 @@ export default function Sidebar({
             <Sparkles className="w-5 h-5 text-white" />
           </div>
           <span className="font-display font-bold text-lg bg-gradient-to-r from-brand-blue to-brand-purple bg-clip-text text-transparent">
-            GloboAI
+            Mastergency
           </span>
         </div>
         <button
@@ -89,7 +89,7 @@ export default function Sidebar({
               </div>
               <div>
                 <h1 className="font-display font-extrabold text-xl bg-gradient-to-r from-brand-blue via-indigo-400 to-brand-purple bg-clip-text text-transparent leading-none">
-                  GloboAI
+                  Mastergency
                 </h1>
                 <span className="text-[10px] text-gray-500 uppercase tracking-widest font-mono">
                   Exchange SaaS

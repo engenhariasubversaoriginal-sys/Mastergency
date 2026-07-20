@@ -115,7 +115,7 @@ export default function LandingPage({ onLoginClick, onRegisterClick, packages }:
             <Sparkles className="w-5 h-5 text-white animate-pulse" />
           </div>
           <span className="font-display font-bold text-xl tracking-tight bg-gradient-to-r from-brand-blue to-brand-purple bg-clip-text text-transparent">
-            GloboAI
+            Mastergency
           </span>
         </div>
 
@@ -192,7 +192,7 @@ export default function LandingPage({ onLoginClick, onRegisterClick, packages }:
                 <span className="w-3 h-3 rounded-full bg-emerald-500" />
               </div>
               <div className="px-3 py-1 rounded-md bg-white/5 text-xs text-gray-500 font-mono">
-                globoai.app/intercambio-sem-fronteiras
+                mastergency.app/intercambio-sem-fronteiras
               </div>
             </div>
 
@@ -256,7 +256,7 @@ export default function LandingPage({ onLoginClick, onRegisterClick, packages }:
             Feito para empresas de Educação Internacional
           </h2>
           <p className="text-gray-400 max-w-xl mx-auto">
-            Seja você uma agência global ou um consultor independente, a GloboAI gera conteúdos precisos,
+            Seja você uma agência global ou um consultor independente, a Mastergency gera conteúdos precisos,
             eliminando as respostas genéricas do ChatGPT.
           </p>
         </div>
@@ -434,7 +434,7 @@ export default function LandingPage({ onLoginClick, onRegisterClick, packages }:
           {trialResult && (
             <div className="mt-8 border-t border-white/10 pt-8 animate-fade-in space-y-6">
               <div className="bg-emerald-500/10 border border-emerald-500/20 p-3 rounded-xl text-xs text-emerald-400 font-bold flex items-center justify-between">
-                <span>✓ Conteúdo gerado com sucesso por GloboAI Strategist!</span>
+                <span>✓ Conteúdo gerado com sucesso por Mastergency Strategist!</span>
                 <span>Restam {trialCredits} testes</span>
               </div>
 
@@ -579,7 +579,7 @@ export default function LandingPage({ onLoginClick, onRegisterClick, packages }:
           <div className="p-5 bg-white/5 rounded-xl border border-white/5">
             <h4 className="text-base font-bold text-white mb-2">Como a IA sabe sobre vistos e destinos reais?</h4>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Diferente de IAs genéricas, o GloboAI permite cadastrar os destinos, diferenciais e serviços da sua agência. Nós acoplamos esses dados dinamicamente aos prompts estratégicos que enviamos para o motor do Gemini, resultando em postagens precisas e úteis.
+              Diferente de IAs genéricas, o Mastergency permite cadastrar os destinos, diferenciais e serviços da sua agência. Nós acoplamos esses dados dinamicamente aos prompts estratégicos que enviamos para o motor do Gemini, resultando em postagens precisas e úteis.
             </p>
           </div>
 
@@ -601,7 +601,7 @@ export default function LandingPage({ onLoginClick, onRegisterClick, packages }:
 
       {/* Simple Footer */}
       <footer className="py-8 border-t border-white/5 text-center text-sm text-gray-500 bg-black/40">
-        <p>© 2026 GloboAI Exchange SaaS. Todos os direitos reservados.</p>
+        <p>© 2026 Mastergency Exchange SaaS. Todos os direitos reservados.</p>
         <p className="mt-2 text-xs text-gray-600">Projetado com excelência para educação internacional.</p>
       </footer>
     </div>

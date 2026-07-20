@@ -330,7 +330,7 @@ Aqui estão 3 ganchos (Hooks) magnéticos para os primeiros 3 segundos do seu v�
    * **Visual:** Expressão séria com legenda: *"O maior erro que faz as pessoas perderem milhares de euros/dólares no intercâmbio."*
    * **Legenda/Roteiro:** Mostre a importância de escolher um suporte local para evitar golpes de acomodação antes de chegar ao destino.`;
         } else {
-          responseText = `### 💡 Resposta do Consultor GloboAI para a Agência **${agencyName}**
+          responseText = `### 💡 Resposta do Consultor Mastergency para a Agência **${agencyName}**
 
 Obrigado pelo seu prompt! Como estou operando em **Modo de Demonstração**, aqui está um conselho estratégico valioso de marketing de conteúdo internacional para a sua dúvida:
 
