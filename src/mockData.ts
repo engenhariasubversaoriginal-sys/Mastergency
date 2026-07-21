@@ -55,7 +55,7 @@ export const DEFAULT_PACKAGES: CreditPackage[] = [
     name: "Plano Start",
     description: "Ideal para freelancers ou agências em início de jornada que querem testar o poder da IA.",
     creditsAmount: 30,
-    price: 49.00,
+    price: 299.00,
     popular: false
   },
   {
@@ -63,7 +63,7 @@ export const DEFAULT_PACKAGES: CreditPackage[] = [
     name: "Plano Pro Creator",
     description: "Nosso plano mais popular. Créditos suficientes para manter um feed ativo o mês todo.",
     creditsAmount: 100,
-    price: 119.00,
+    price: 459.00,
     popular: true
   },
   {
@@ -71,7 +71,7 @@ export const DEFAULT_PACKAGES: CreditPackage[] = [
     name: "Plano Agency Elite",
     description: "Desenvolvido para grandes agências de intercâmbio com múltiplos consultores e contas sociais.",
     creditsAmount: 300,
-    price: 269.00,
+    price: 699.00,
     popular: false
   }
 ];
@@ -307,9 +307,21 @@ export const initializeDB = () => {
   if (!localStorage.getItem("globoai_system_prompt")) {
     localStorage.setItem("globoai_system_prompt", JSON.stringify(DEFAULT_SYSTEM_PROMPT));
   }
-  if (!localStorage.getItem("globoai_packages")) {
+  
+  const existingPacks = localStorage.getItem("globoai_packages");
+  if (!existingPacks) {
     localStorage.setItem("globoai_packages", JSON.stringify(DEFAULT_PACKAGES));
+  } else {
+    try {
+      const parsed = JSON.parse(existingPacks);
+      if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].price !== 299.00) {
+        localStorage.setItem("globoai_packages", JSON.stringify(DEFAULT_PACKAGES));
+      }
+    } catch (e) {
+      localStorage.setItem("globoai_packages", JSON.stringify(DEFAULT_PACKAGES));
+    }
   }
+
   if (!localStorage.getItem("globoai_all_users")) {
     // For admin user management
     const users = [

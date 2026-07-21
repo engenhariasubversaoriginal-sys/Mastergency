@@ -207,9 +207,9 @@ Hoje, a nossa agência está com taxas de câmbio congeladas e parcelamento em a
   };
 
   return (
-    <div className="space-y-8 animate-fade-in pb-12">
+    <div className="space-y-6 sm:space-y-8 animate-fade-in pb-12">
       {/* Welcome Banner */}
-      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-gray-950 via-[#131333]/30 to-[#0c183a]/40 border border-white/5 p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-gray-950 via-[#131333]/30 to-[#0c183a]/40 border border-white/5 p-5 sm:p-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6">
         <div className="absolute inset-0 bg-radial-gradient(circle, rgba(14, 165, 233, 0.05) 0%, transparent 60%) pointer-events-none" />
         <div className="space-y-2">
           <div className="flex items-center gap-2">
@@ -217,57 +217,57 @@ Hoje, a nossa agência está com taxas de câmbio congeladas e parcelamento em a
               Painel de Controle {user.role === "admin" ? "ADMINISTRATIVO" : "DE AGÊNCIA"}
             </span>
           </div>
-          <h2 className="font-display font-extrabold text-3xl text-white">
+          <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-white">
             Olá, {user.fullName}! 👋
           </h2>
-          <p className="text-sm text-gray-400 max-w-xl">
+          <p className="text-xs sm:text-sm text-gray-400 max-w-xl">
             O que vamos planejar hoje para atrair mais estudantes internacionais e vender consultorias de visto?
           </p>
         </div>
         <button
           onClick={() => onNavigate("generator")}
-          className="px-6 py-3.5 bg-gradient-to-r from-brand-blue to-brand-purple text-white font-bold rounded-xl shadow-lg shadow-brand-blue/15 hover:shadow-brand-blue/30 hover:scale-102 transition-all flex items-center gap-2 cursor-pointer"
+          className="w-full sm:w-auto px-5 py-3 sm:py-3.5 bg-gradient-to-r from-brand-blue to-brand-purple text-white text-xs sm:text-sm font-bold rounded-xl shadow-lg shadow-brand-blue/15 hover:shadow-brand-blue/30 hover:scale-102 transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
           id="btn-dash-new-post"
         >
-          <Sparkles className="w-5 h-5" />
+          <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
           <span>Criar Conteúdo Completo</span>
         </button>
       </div>
 
       {/* Metrics Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {/* Metric 1 */}
-        <div className="p-6 bg-white/5 rounded-2xl border border-white/5 flex items-center justify-between hover:border-brand-blue/20 transition-all">
+        <div className="p-4 sm:p-6 bg-white/5 rounded-2xl border border-white/5 flex items-center justify-between hover:border-brand-blue/20 transition-all">
           <div className="space-y-1">
             <span className="text-[10px] text-gray-500 uppercase tracking-wider font-mono block">Conteúdos Criados</span>
-            <span className="text-3xl font-extrabold text-white">{totalCreated}</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-white">{totalCreated}</span>
             <div className="text-[11px] text-emerald-400 flex items-center gap-1 font-semibold">
               <TrendingUp className="w-3.5 h-3.5" />
               <span>+18% este mês</span>
             </div>
           </div>
-          <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue">
-            <FileText className="w-6 h-6" />
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
+            <FileText className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
         </div>
 
         {/* Metric 2 */}
-        <div className="p-6 bg-white/5 rounded-2xl border border-white/5 flex items-center justify-between hover:border-brand-purple/20 transition-all">
+        <div className="p-4 sm:p-6 bg-white/5 rounded-2xl border border-white/5 flex items-center justify-between hover:border-brand-purple/20 transition-all">
           <div className="space-y-1">
             <span className="text-[10px] text-gray-500 uppercase tracking-wider font-mono block">Posts Publicados</span>
-            <span className="text-3xl font-extrabold text-white">{totalPublished}</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-white">{totalPublished}</span>
             <span className="text-[11px] text-gray-400 block">Do rascunho ao feed</span>
           </div>
-          <div className="w-12 h-12 rounded-xl bg-brand-purple/10 flex items-center justify-center text-brand-purple">
-            <CheckCircle2 className="w-6 h-6" />
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-brand-purple/10 flex items-center justify-center text-brand-purple shrink-0">
+            <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
         </div>
 
         {/* Metric 3 */}
-        <div className="p-6 bg-white/5 rounded-2xl border border-white/5 flex items-center justify-between hover:border-yellow-500/20 transition-all">
+        <div className="p-4 sm:p-6 bg-white/5 rounded-2xl border border-white/5 flex items-center justify-between hover:border-yellow-500/20 transition-all">
           <div className="space-y-1">
             <span className="text-[10px] text-gray-500 uppercase tracking-wider font-mono block">Seus Créditos de Teste</span>
-            <span className="text-3xl font-extrabold text-yellow-400">{user.availableCredits}</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-yellow-400">{user.availableCredits}</span>
             <div className="flex gap-2">
               <button
                 onClick={() => onNavigate("credits")}
@@ -284,48 +284,48 @@ Hoje, a nossa agência está com taxas de câmbio congeladas e parcelamento em a
               </button>
             </div>
           </div>
-          <div className="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center text-yellow-500">
-            <Coins className="w-6 h-6" />
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center text-yellow-500 shrink-0">
+            <Coins className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
         </div>
 
         {/* Metric 4 */}
-        <div className="p-6 bg-white/5 rounded-2xl border border-white/5 flex items-center justify-between hover:border-emerald-500/20 transition-all">
+        <div className="p-4 sm:p-6 bg-white/5 rounded-2xl border border-white/5 flex items-center justify-between hover:border-emerald-500/20 transition-all">
           <div className="space-y-1">
             <span className="text-[10px] text-gray-500 uppercase tracking-wider font-mono block">Agendados no Mês</span>
-            <span className="text-3xl font-extrabold text-white">{totalScheduled}</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-white">{totalScheduled}</span>
             <span className="text-[11px] text-gray-400 block">No calendário editorial</span>
           </div>
-          <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400">
-            <Calendar className="w-6 h-6" />
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 shrink-0">
+            <Calendar className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
         </div>
       </div>
 
       {/* CHATGPT-STYLE CHAT ASSISTANT PROMPT CONTAINER */}
-      <div className="p-6 bg-gradient-to-tr from-gray-950 via-slate-900/40 to-[#0e172a]/50 rounded-3xl border border-white/10 space-y-6">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="p-4 sm:p-6 bg-gradient-to-tr from-gray-950 via-slate-900/40 to-[#0e172a]/50 rounded-3xl border border-white/10 space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-brand-blue/15 flex items-center justify-center text-brand-blue border border-brand-blue/20">
-              <MessageSquare className="w-5 h-5" />
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-brand-blue/15 flex items-center justify-center text-brand-blue border border-brand-blue/20 shrink-0">
+              <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <h3 className="font-display font-bold text-lg text-white">Consultor de Copywriting Mastergency</h3>
-              <p className="text-xs text-gray-400">ChatGPT-style Assistant: Pergunte dúvidas reais ou peça copywriting estratégico</p>
+              <h3 className="font-display font-bold text-base sm:text-lg text-white">Consultor de Copywriting Mastergency</h3>
+              <p className="text-[11px] sm:text-xs text-gray-400">ChatGPT-style Assistant: Pergunte dúvidas reais ou peça copywriting estratégico</p>
             </div>
           </div>
-          <div className="flex items-center gap-2 text-xs bg-white/5 border border-white/10 px-3 py-1.5 rounded-xl text-gray-400 font-mono">
+          <div className="flex items-center gap-2 text-[11px] sm:text-xs bg-white/5 border border-white/10 px-3 py-1.5 rounded-xl text-gray-400 font-mono">
             <Coins className="w-3.5 h-3.5 text-yellow-400" />
-            <span>Consumo: 1 crédito por prompt de teste</span>
+            <span>Consumo: 1 crédito por prompt</span>
           </div>
         </div>
 
         {/* Chat Feed */}
-        <div className="h-80 overflow-y-auto bg-black/50 rounded-2xl border border-white/5 p-4 space-y-4">
+        <div className="h-72 sm:h-80 overflow-y-auto bg-black/50 rounded-2xl border border-white/5 p-3 sm:p-4 space-y-4">
           {chatMessages.map((msg, i) => (
             <div
               key={i}
-              className={`flex items-start gap-3 max-w-[85%] ${
+              className={`flex items-start gap-2.5 sm:gap-3 max-w-[95%] sm:max-w-[85%] ${
                 msg.sender === "user" ? "ml-auto flex-row-reverse" : "mr-auto"
               }`}
             >

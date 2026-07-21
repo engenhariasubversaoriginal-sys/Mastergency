@@ -306,8 +306,8 @@ export default function LibraryComponent({ contents, onRefreshLibrary, onNavigat
 
       {/* DETAIL MODAL */}
       {viewingItem && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-2xl bg-[#0b0f1a] border border-white/10 rounded-3xl p-6 md:p-8 space-y-6 relative overflow-hidden">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+          <div className="w-full max-w-2xl bg-[#0b0f1a] border border-white/10 rounded-3xl p-4 sm:p-8 space-y-6 relative overflow-hidden my-auto max-h-[90vh] flex flex-col justify-between">
             {/* Top Accent line */}
             <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-blue to-brand-purple" />
 

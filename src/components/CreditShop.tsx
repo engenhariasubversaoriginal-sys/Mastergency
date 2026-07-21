@@ -215,8 +215,8 @@ export default function CreditShop({
 
       {/* Checkout Simulator Modal */}
       {activePackage && (
-        <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-[#0a0e19] border border-white/10 rounded-3xl p-6 relative">
+        <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+          <div className="w-full max-w-md bg-[#0a0e19] border border-white/10 rounded-3xl p-5 sm:p-6 relative my-auto max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => { if (!isProcessing) setActivePackage(null); }}
               className="absolute top-4 right-4 p-1 text-gray-500 hover:text-white hover:bg-white/5 rounded-lg"

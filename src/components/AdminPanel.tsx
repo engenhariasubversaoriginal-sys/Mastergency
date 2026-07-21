@@ -323,8 +323,8 @@ export default function AdminPanel({ onRefreshData }: AdminPanelProps) {
 
       {/* Credit Adjustment Modal */}
       {selectedUserForCredits && (
-        <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <form onSubmit={handleAdjustCreditsSubmit} className="w-full max-w-sm glass-panel-heavy rounded-2xl border border-white/10 p-6 space-y-4">
+        <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+          <form onSubmit={handleAdjustCreditsSubmit} className="w-full max-w-sm glass-panel-heavy rounded-2xl border border-white/10 p-5 sm:p-6 space-y-4 my-auto max-h-[90vh] overflow-y-auto">
             <h4 className="font-display font-bold text-lg text-white">Ajustar Créditos de IA</h4>
             <p className="text-xs text-gray-400">
               Ajuste manualmente o saldo de <strong className="text-white">{selectedUserForCredits.fullName}</strong>.

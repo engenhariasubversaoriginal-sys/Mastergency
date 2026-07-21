@@ -48,39 +48,47 @@ export default function Sidebar({
   return (
     <>
       {/* Mobile top bar */}
-      <div className="md:hidden flex items-center justify-between p-4 bg-gray-950/80 backdrop-blur-md border-b border-white/5 sticky top-0 z-40">
+      <div className="md:hidden flex items-center justify-between p-3.5 px-4 bg-gray-950/90 backdrop-blur-md border-b border-white/5 sticky top-0 z-40">
         <div className="flex items-center gap-2">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-blue to-brand-purple flex items-center justify-center shadow-lg shadow-brand-blue/20">
-            <Sparkles className="w-5 h-5 text-white" />
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-brand-blue to-brand-purple flex items-center justify-center shadow-lg shadow-brand-blue/20">
+            <Sparkles className="w-4 h-4 text-white" />
           </div>
-          <span className="font-display font-bold text-lg bg-gradient-to-r from-brand-blue to-brand-purple bg-clip-text text-transparent">
+          <span className="font-display font-bold text-base bg-gradient-to-r from-brand-blue to-brand-purple bg-clip-text text-transparent">
             Mastergency
           </span>
         </div>
-        <button
-          onClick={() => setSidebarOpen(true)}
-          className="p-2 text-gray-400 hover:text-white transition-colors"
-          id="btn-sidebar-open"
-        >
-          <Menu className="w-6 h-6" />
-        </button>
+        <div className="flex items-center gap-2">
+          {user && (
+            <div className="flex items-center gap-1 bg-yellow-500/10 border border-yellow-500/20 px-2 py-1 rounded-lg text-xs font-bold text-yellow-400">
+              <Coins className="w-3.5 h-3.5" />
+              <span>{user.availableCredits} crd</span>
+            </div>
+          )}
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="p-2 text-gray-400 hover:text-white transition-colors"
+            id="btn-sidebar-open"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+        </div>
       </div>
 
       {/* Backdrop for mobile */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 md:hidden"
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 md:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Main Sidebar */}
       <aside
-        className={`fixed md:sticky top-0 left-0 h-screen w-64 glass-panel-heavy border-r border-white/10 z-50 flex flex-col justify-between transition-transform duration-300 md:translate-x-0 ${
+        className={`fixed md:sticky top-0 left-0 h-screen w-64 glass-panel-heavy border-r border-white/10 z-50 flex flex-col justify-between overflow-y-auto transition-transform duration-300 md:translate-x-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="p-6">
+        <div className="p-5 sm:p-6 flex-1">
           {/* Logo Section */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-3">

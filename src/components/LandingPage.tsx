@@ -13,7 +13,9 @@ import {
   HelpCircle,
   Zap,
   Coins,
-  ChevronDown
+  ChevronDown,
+  Menu,
+  X
 } from "lucide-react";
 import { ContentFormat, CreditPackage } from "../types";
 
@@ -24,7 +26,8 @@ interface LandingPageProps {
 }
 
 export default function LandingPage({ onLoginClick, onRegisterClick, packages }: LandingPageProps) {
-  // Free trial state
+  // Free trial & mobile menu states
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [trialCredits, setTrialCredits] = useState<number>(4);
   const [trialDestination, setTrialDestination] = useState<string>("Canadá");
   const [trialService, setTrialService] = useState<string>("Trabalho & Estudo");
@@ -109,12 +112,12 @@ export default function LandingPage({ onLoginClick, onRegisterClick, packages }:
       <div className="glow-bg-blue bottom-[-10%] left-[20%]" />
 
       {/* Navigation Header */}
-      <header className="sticky top-0 z-50 glass-panel border-b border-white/5 py-4 px-6 md:px-12 flex items-center justify-between">
+      <header className="sticky top-0 z-50 glass-panel border-b border-white/5 py-3.5 px-4 sm:px-6 md:px-12 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-blue to-brand-purple flex items-center justify-center shadow-lg shadow-brand-blue/25">
-            <Sparkles className="w-5 h-5 text-white animate-pulse" />
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-brand-blue to-brand-purple flex items-center justify-center shadow-lg shadow-brand-blue/25">
+            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-white animate-pulse" />
           </div>
-          <span className="font-display font-bold text-xl tracking-tight bg-gradient-to-r from-brand-blue to-brand-purple bg-clip-text text-transparent">
+          <span className="font-display font-bold text-lg sm:text-xl tracking-tight bg-gradient-to-r from-brand-blue to-brand-purple bg-clip-text text-transparent">
             Mastergency
           </span>
         </div>
@@ -126,7 +129,7 @@ export default function LandingPage({ onLoginClick, onRegisterClick, packages }:
           <a href="#faq" className="hover:text-white transition-colors">Como funciona</a>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="hidden sm:flex items-center gap-3">
           <button
             onClick={onLoginClick}
             className="px-4 py-2 text-sm font-semibold text-gray-300 hover:text-white transition-colors rounded-xl hover:bg-white/5"
@@ -136,23 +139,90 @@ export default function LandingPage({ onLoginClick, onRegisterClick, packages }:
           </button>
           <button
             onClick={onRegisterClick}
-            className="px-5 py-2.5 text-sm font-bold bg-gradient-to-r from-brand-blue to-brand-purple text-white rounded-xl shadow-lg shadow-brand-blue/20 hover:shadow-brand-blue/35 hover:scale-102 transition-all"
+            className="px-5 py-2 text-sm font-bold bg-gradient-to-r from-brand-blue to-brand-purple text-white rounded-xl shadow-lg shadow-brand-blue/20 hover:shadow-brand-blue/35 hover:scale-102 transition-all"
             id="btn-landing-register"
           >
             Começar Grátis
           </button>
         </div>
+
+        {/* Mobile menu toggle button */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden p-2 text-gray-300 hover:text-white focus:outline-none"
+          id="btn-landing-mobile-menu"
+        >
+          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
       </header>
 
+      {/* Mobile Drawer Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden fixed inset-x-0 top-[60px] z-40 bg-gray-950/95 backdrop-blur-xl border-b border-white/10 p-5 space-y-4 animate-fade-in">
+          <div className="flex flex-col space-y-3 font-medium text-sm text-gray-300">
+            <a 
+              href="#features" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-3 py-2 hover:bg-white/5 rounded-lg transition-colors"
+            >
+              Benefícios
+            </a>
+            <a 
+              href="#playground" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-3 py-2 hover:bg-white/5 rounded-lg transition-colors text-brand-blue font-bold flex items-center gap-1.5"
+            >
+              <Zap className="w-4 h-4" />
+              Teste Grátis IA
+            </a>
+            <a 
+              href="#pricing" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-3 py-2 hover:bg-white/5 rounded-lg transition-colors"
+            >
+              Planos e Valores
+            </a>
+            <a 
+              href="#faq" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-3 py-2 hover:bg-white/5 rounded-lg transition-colors"
+            >
+              Dúvidas Frequentes
+            </a>
+          </div>
+
+          <div className="pt-3 border-t border-white/10 flex flex-col gap-2.5">
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onLoginClick();
+              }}
+              className="w-full py-2.5 text-sm font-semibold text-gray-200 border border-white/10 rounded-xl hover:bg-white/5"
+            >
+              Entrar na minha Conta
+            </button>
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onRegisterClick();
+              }}
+              className="w-full py-3 text-sm font-bold bg-gradient-to-r from-brand-blue to-brand-purple text-white rounded-xl shadow-lg shadow-brand-blue/20"
+            >
+              Criar Conta Gratuita
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
-      <section className="relative px-6 pt-20 pb-16 md:pt-32 md:pb-24 max-w-7xl mx-auto flex flex-col items-center text-center">
+      <section className="relative px-4 sm:px-6 pt-10 sm:pt-20 pb-12 sm:pb-16 md:pt-32 md:pb-24 max-w-7xl mx-auto flex flex-col items-center text-center">
         {/* Floating badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-blue/10 border border-brand-blue/25 text-brand-blue text-xs font-semibold mb-6 animate-fade-in uppercase tracking-wider">
-          <Zap className="w-3.5 h-3.5 animate-bounce" />
-          IA Especializada em Educação Internacional
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-blue/10 border border-brand-blue/25 text-brand-blue text-[11px] sm:text-xs font-semibold mb-6 animate-fade-in uppercase tracking-wider">
+          <Zap className="w-3.5 h-3.5 animate-bounce shrink-0" />
+          <span>IA Especializada em Educação Internacional</span>
         </div>
 
-        <h1 className="font-display font-extrabold text-4xl sm:text-6xl max-w-4xl tracking-tight leading-[1.1] mb-6">
+        <h1 className="font-display font-extrabold text-3xl sm:text-5xl md:text-6xl max-w-4xl tracking-tight leading-[1.15] mb-5 sm:mb-6">
           Transforme as dúvidas dos seus clientes em{" "}
           <span className="bg-gradient-to-r from-brand-blue via-indigo-400 to-brand-purple bg-clip-text text-transparent">
             posts virais prontos
@@ -160,7 +230,7 @@ export default function LandingPage({ onLoginClick, onRegisterClick, packages }:
           para publicar!
         </h1>
 
-        <p className="text-gray-400 text-lg sm:text-xl max-w-2xl mb-10 leading-relaxed">
+        <p className="text-gray-400 text-base sm:text-xl max-w-2xl mb-8 sm:mb-10 leading-relaxed px-2">
           Crie roteiros de Reels, carrosséis educativos, stories interativos e legendas profissionais
           altamente adaptados para os destinos e vistos que a sua agência vende.
         </p>

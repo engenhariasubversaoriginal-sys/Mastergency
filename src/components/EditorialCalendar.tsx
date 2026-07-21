@@ -112,7 +112,7 @@ export default function EditorialCalendar({ contents, onRefreshData, onNavigate 
       </div>
 
       {/* Calendar Control Navigation */}
-      <div className="p-5 bg-white/5 rounded-2xl border border-white/5 flex items-center justify-between">
+      <div className="p-4 sm:p-5 bg-white/5 rounded-2xl border border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <button
             onClick={handlePrevMonth}
@@ -120,7 +120,7 @@ export default function EditorialCalendar({ contents, onRefreshData, onNavigate 
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
-          <h3 className="font-display font-bold text-lg text-white">
+          <h3 className="font-display font-bold text-base sm:text-lg text-white">
             {monthNames[currentMonth]} {currentYear}
           </h3>
           <button
@@ -131,33 +131,34 @@ export default function EditorialCalendar({ contents, onRefreshData, onNavigate 
           </button>
         </div>
 
-        <div className="flex items-center gap-4 text-xs font-semibold">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-semibold">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded bg-emerald-500" />
+            <span className="w-2.5 h-2.5 rounded bg-emerald-500 shrink-0" />
             <span className="text-gray-400">Agendados ({contents.filter(c => c.status === ContentStatus.SCHEDULED).length})</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded bg-indigo-500" />
+            <span className="w-2.5 h-2.5 rounded bg-indigo-500 shrink-0" />
             <span className="text-gray-400">Rascunhos/Aprovados ({contents.filter(c => c.status === ContentStatus.DRAFT || c.status === ContentStatus.APPROVED).length})</span>
           </div>
         </div>
       </div>
 
-      {/* Calendar Grid */}
-      <div className="bg-white/5 rounded-3xl border border-white/5 overflow-hidden">
-        {/* Days of Week Row */}
-        <div className="grid grid-cols-7 border-b border-white/5 bg-black/30 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider font-mono">
-          <div>Dom</div>
-          <div>Seg</div>
-          <div>Ter</div>
-          <div>Qua</div>
-          <div>Qui</div>
-          <div>Sex</div>
-          <div>Sáb</div>
-        </div>
+      {/* Calendar Grid Container with horizontal scroll on mobile */}
+      <div className="bg-white/5 rounded-3xl border border-white/5 overflow-x-auto">
+        <div className="min-w-[600px]">
+          {/* Days of Week Row */}
+          <div className="grid grid-cols-7 border-b border-white/5 bg-black/30 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider font-mono">
+            <div>Dom</div>
+            <div>Seg</div>
+            <div>Ter</div>
+            <div>Qua</div>
+            <div>Qui</div>
+            <div>Sex</div>
+            <div>Sáb</div>
+          </div>
 
-        {/* Days Cells */}
-        <div className="grid grid-cols-7 auto-rows-[110px] md:auto-rows-[130px] border-l border-t border-white/5">
+          {/* Days Cells */}
+          <div className="grid grid-cols-7 auto-rows-[110px] md:auto-rows-[130px] border-l border-t border-white/5">
           {calendarCells.map((day, cellIndex) => {
             const hasDay = day !== null;
             const posts = hasDay ? getDayPosts(day) : [];
@@ -196,6 +197,7 @@ export default function EditorialCalendar({ contents, onRefreshData, onNavigate 
           })}
         </div>
       </div>
+    </div>
 
       {/* Day Scheduled Post Details Drawer / Modal */}
       {selectedDayPost && (
