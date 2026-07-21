@@ -298,9 +298,6 @@ export const initializeDB = () => {
   if (!localStorage.getItem("globoai_agency")) {
     localStorage.setItem("globoai_agency", JSON.stringify(DEFAULT_AGENCY));
   }
-  if (!localStorage.getItem("globoai_user")) {
-    localStorage.setItem("globoai_user", JSON.stringify(DEFAULT_USER));
-  }
   if (!localStorage.getItem("globoai_contents")) {
     localStorage.setItem("globoai_contents", JSON.stringify(DEFAULT_CONTENTS));
   }
@@ -388,9 +385,19 @@ export const saveAgency = (agency: Agency) => {
   }
 };
 
-export const getUserProfile = (): UserProfile => {
+export const getUserProfile = (): UserProfile | null => {
   initializeDB();
-  return JSON.parse(localStorage.getItem("globoai_user") || "{}");
+  const raw = localStorage.getItem("globoai_user");
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw);
+    if (parsed && parsed.email) {
+      return parsed;
+    }
+  } catch (e) {
+    return null;
+  }
+  return null;
 };
 
 export const saveUserProfile = (user: UserProfile) => {
