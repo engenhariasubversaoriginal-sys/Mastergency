@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Sparkles, Mail, Lock, Building, ArrowRight, ArrowLeft, CheckCircle, ShieldAlert, KeyRound, Check, RefreshCw } from "lucide-react";
 import { UserProfile, Agency } from "../types";
 import { saveUserProfile, saveAgency, getAllUsers, saveAllUsers, getAllAgencies, saveAllAgencies } from "../mockData";
+import { isSupabaseConfigured, getSupabaseClient } from "../lib/supabase";
 
 interface AuthProps {
   onAuthSuccess: (user: UserProfile) => void;
@@ -19,6 +20,13 @@ export default function Auth({ onAuthSuccess, onBackToLanding, initialMode = "lo
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [isSsoLoading, setIsSsoLoading] = useState(false);
+
+  // Custom Google SSO simulator states
+  const [showGoogleModal, setShowGoogleModal] = useState(false);
+  const [googleEmail, setGoogleEmail] = useState("");
+  const [googlePassword, setGooglePassword] = useState("");
+  const [googleStep, setGoogleStep] = useState<"email" | "password" | "loading">("email");
+  const [googleError, setGoogleError] = useState("");
 
   // Keep temporary register details to proceed after email confirmation
   const [tempRegisterData, setTempRegisterData] = useState<any | null>(null);
@@ -170,16 +178,70 @@ export default function Auth({ onAuthSuccess, onBackToLanding, initialMode = "lo
   };
 
   const handleGoogleSso = () => {
-    setIsSsoLoading(true);
     setErrorMsg("");
     setSuccessMsg("");
 
+    if (isSupabaseConfigured()) {
+      const supabase = getSupabaseClient();
+      if (supabase) {
+        setIsSsoLoading(true);
+        // Real Supabase OAuth flow
+        supabase.auth.signInWithOAuth({
+          provider: "google",
+          options: {
+            redirectTo: window.location.origin
+          }
+        }).then(({ error }) => {
+          setIsSsoLoading(false);
+          if (error) {
+            setErrorMsg(`Erro de SSO no Supabase: ${error.message}`);
+          }
+        }).catch((err: any) => {
+          setIsSsoLoading(false);
+          setErrorMsg(`Erro ao iniciar SSO: ${err.message || err}`);
+        });
+        return;
+      }
+    }
+
+    // Local Mock DB Mode - Open the beautiful, interactive Google Sign-In simulation
+    setShowGoogleModal(true);
+    setGoogleEmail("");
+    setGooglePassword("");
+    setGoogleStep("email");
+    setGoogleError("");
+  };
+
+  const handleGoogleEmailNext = (e: React.FormEvent) => {
+    e.preventDefault();
+    setGoogleError("");
+    const trimmedEmail = googleEmail.trim();
+    if (!trimmedEmail) {
+      setGoogleError("Insira um e-mail válido.");
+      return;
+    }
+    if (!trimmedEmail.includes("@")) {
+      setGoogleError("Insira um formato de e-mail do Google válido (ex: seu.nome@gmail.com).");
+      return;
+    }
+    setGoogleStep("password");
+  };
+
+  const handleGooglePasswordNext = (e: React.FormEvent) => {
+    e.preventDefault();
+    setGoogleError("");
+    if (!googlePassword || googlePassword.length < 6) {
+      setGoogleError("A senha do Google deve ter no mínimo 6 caracteres.");
+      return;
+    }
+
+    setGoogleStep("loading");
+    
     setTimeout(() => {
-      setIsSsoLoading(false);
-      // Simulate Google SSO Success
-      const randomId = Math.floor(Math.random() * 1000);
-      const ssoEmail = `google.user${randomId}@gmail.com`;
-      const ssoAgencyName = `Agência Google S.A.`;
+      const ssoEmail = googleEmail.trim().toLowerCase();
+      const rawPrefix = ssoEmail.split("@")[0];
+      const ssoFullName = rawPrefix.charAt(0).toUpperCase() + rawPrefix.slice(1) + " (Google)";
+      const ssoAgencyName = `Agência ${rawPrefix.charAt(0).toUpperCase() + rawPrefix.slice(1)} Ltda`;
 
       const agencyId = `agency-sso-${Date.now()}`;
       const newAgency: Agency = {
@@ -196,10 +258,10 @@ export default function Auth({ onAuthSuccess, onBackToLanding, initialMode = "lo
       const newUser: UserProfile = {
         id: `user-sso-${Date.now()}`,
         email: ssoEmail,
-        fullName: `Usuário Google ${randomId}`,
+        fullName: ssoFullName,
         agencyId: agencyId,
         role: "user",
-        availableCredits: 4, // 4 credits
+        availableCredits: 4, // 4 free credits
         totalGenerated: 0,
         totalPublished: 0,
         createdAt: new Date().toISOString().split("T")[0]
@@ -216,11 +278,13 @@ export default function Auth({ onAuthSuccess, onBackToLanding, initialMode = "lo
       saveAllUsers(users);
       saveUserProfile(newUser);
 
-      setSuccessMsg("Conectado via Google SSO com sucesso! Ganhou 4 créditos grátis.");
+      setShowGoogleModal(false);
+      setSuccessMsg(`Conectado com sucesso via Google SSO como ${ssoEmail}!`);
+      
       setTimeout(() => {
         onAuthSuccess(newUser);
       }, 1000);
-    }, 1200);
+    }, 1500);
   };
 
   const handleQuickFill = (targetEmail: string, role: "admin" | "user") => {
@@ -611,6 +675,144 @@ export default function Auth({ onAuthSuccess, onBackToLanding, initialMode = "lo
           </div>
         )}
       </div>
+
+      {/* GOOGLE SSO INTERACTIVE MODAL */}
+      {showGoogleModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
+          <div className="w-full max-w-md bg-white text-gray-900 rounded-2xl shadow-2xl overflow-hidden border border-gray-100 flex flex-col p-8 relative">
+            
+            {/* Google Logo */}
+            <div className="flex justify-center mb-6">
+              <svg className="w-10 h-10 animate-bounce-short" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+              </svg>
+            </div>
+
+            <div className="text-center mb-6">
+              <h3 className="font-sans text-xl font-medium text-gray-900">Fazer login</h3>
+              <p className="text-sm text-gray-600 mt-1">com sua Conta do Google</p>
+              <div className="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 rounded-full border border-blue-100">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-ping" />
+                <span className="text-[10px] font-bold text-blue-700 tracking-wider uppercase">Autenticação Segura SSL</span>
+              </div>
+            </div>
+
+            {googleError && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-100 rounded-xl text-red-600 text-xs text-center font-semibold">
+                ⚠️ {googleError}
+              </div>
+            )}
+
+            {googleStep === "email" && (
+              <form onSubmit={handleGoogleEmailNext} className="space-y-6">
+                <div className="space-y-1">
+                  <label className="block text-xs font-semibold text-gray-700">
+                    E-mail ou telefone do Google
+                  </label>
+                  <input
+                    type="email"
+                    value={googleEmail}
+                    onChange={(e) => setGoogleEmail(e.target.value)}
+                    placeholder="exemplo@gmail.com"
+                    className="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-sans"
+                    required
+                    autoFocus
+                  />
+                  <span className="text-[11px] text-gray-500 block leading-relaxed pt-1">
+                    Insira uma conta Google válida para prosseguir. Sua conta será vinculada e você receberá 4 créditos iniciais grátis.
+                  </span>
+                </div>
+
+                <div className="flex justify-between items-center pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowGoogleModal(false)}
+                    className="text-sm text-gray-500 hover:text-gray-700 font-semibold py-2 rounded"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-[#1a73e8] hover:bg-[#1557b0] text-white font-medium text-sm px-6 py-2.5 rounded-lg transition-all shadow"
+                  >
+                    Próxima
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {googleStep === "password" && (
+              <form onSubmit={handleGooglePasswordNext} className="space-y-6">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 p-2 bg-gray-50 border border-gray-100 rounded-xl">
+                    <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-xs font-bold text-blue-600 font-mono">
+                      {googleEmail.charAt(0).toUpperCase()}
+                    </div>
+                    <span className="text-xs text-gray-700 font-medium truncate flex-1">{googleEmail}</span>
+                    <button 
+                      type="button" 
+                      onClick={() => setGoogleStep("email")}
+                      className="text-[11px] text-blue-600 font-bold hover:underline px-1"
+                    >
+                      Alterar
+                    </button>
+                  </div>
+                  
+                  <label className="block text-xs font-semibold text-gray-700">
+                    Digite sua senha do Google
+                  </label>
+                  <input
+                    type="password"
+                    value={googlePassword}
+                    onChange={(e) => setGooglePassword(e.target.value)}
+                    placeholder="Sua senha"
+                    className="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-sans"
+                    required
+                    autoFocus
+                  />
+                </div>
+
+                <div className="flex justify-between items-center pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setGoogleStep("email")}
+                    className="text-sm text-gray-500 hover:text-gray-700 font-semibold py-2 rounded"
+                  >
+                    Voltar
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-[#1a73e8] hover:bg-[#1557b0] text-white font-medium text-sm px-6 py-2.5 rounded-lg transition-all shadow"
+                  >
+                    Concluir login
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {googleStep === "loading" && (
+              <div className="py-12 flex flex-col items-center justify-center space-y-4">
+                <RefreshCw className="w-10 h-10 text-[#1a73e8] animate-spin" />
+                <p className="text-xs text-gray-600 font-semibold tracking-wider uppercase animate-pulse">Conectando de forma segura ao Google...</p>
+              </div>
+            )}
+
+            {/* Google Terms Footer */}
+            <div className="mt-8 pt-4 border-t border-gray-100 flex justify-between text-[11px] text-gray-500 font-sans">
+              <span>Português (Brasil)</span>
+              <div className="flex gap-3">
+                <a href="#" className="hover:underline">Ajuda</a>
+                <a href="#" className="hover:underline">Privacidade</a>
+                <a href="#" className="hover:underline">Termos</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
     </div>
   );
 }
